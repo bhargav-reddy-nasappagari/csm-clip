@@ -1,0 +1,7 @@
+numpy
+torch
+pillow
+datasets
+huggingface_hub
+pytest
+scikit-learn
