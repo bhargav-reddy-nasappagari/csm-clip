@@ -63,7 +63,7 @@ Each milestone ends with a gate. Do not start the next milestone until the gate 
 | # | Milestone | Gate (pass/fail) | Status |
 |---|---|---|---|
 | M0 | Repo, this contract, decision log | Contract agreed by both sides | Done (tag m0-done) |
-| M1 | Data + eval harness (loader, manifests, protocols, metrics, bootstrap CI) | Held-out generator absent from train/val; splits balanced and deterministic; controlled protocol verified (single JPEG compression) | Not started |
+| M1 | Data + eval harness (loader, manifests, protocols, metrics, bootstrap CI) | Held-out generator absent from train/val; splits balanced and deterministic; controlled protocol verified (single JPEG compression) | Done (tag m1-done, 2026-11-12) |
 | M2 | Frozen-CLIP probes (UnivFD-style and multi-layer) | Reproduce reference numbers in Section 2 within CI | Not started |
 | M3 | Backbone + LoRA (r=8) | Taps are 2 x (B,576,1024) with CLS dropped; LoRA tensors get gradients, base CLIP gets none | Not started |
 | M4 | Fusion + concept bank + affinity | X is (B,576,384); alpha is (B,576,16) and rows sum to 1; gradients reach both projections | Not started |
