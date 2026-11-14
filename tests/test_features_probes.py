@@ -6,7 +6,7 @@ from transformers import CLIPVisionConfig, CLIPVisionModel
 
 from src import features as F
 from src.features import ClipTaps, FeatureStore, RowDataset, extract_to_cache, union_rows
-from src.probes import REFERENCE, fit_probe, gate_report, run_fold
+from src.probes import REFERENCE, fit_probe, gate_passes, gate_report, run_fold
 
 
 class FakeHF:
@@ -125,3 +125,12 @@ def test_gate_report_logic():
 def test_union_rows():
     ms = [{"train": [3, 1], "val": [5]}, {"train": [1, 2], "val": [5]}]
     assert union_rows(ms, "train") == [1, 2, 3]
+
+
+def test_revised_gate_d017():
+    ref, lo, hi = REFERENCE[("ADM", "multilayer")]
+    mk = lambda a, ci: {"fold": "ADM", "kind": "multilayer", "auroc": a, "auroc_ci95": ci, "C": 0.1}
+    ok = gate_report([mk(0.963, [0.952, 0.972])])            # observed M2 cell: -0.014, CIs overlap
+    assert not ok[0]["in_ref_ci"] and ok[0]["delta"] == -0.014 and gate_passes(ok)
+    assert not gate_passes(gate_report([mk(0.940, [0.925, 0.955])]))      # no CI overlap
+    assert not gate_passes(gate_report([mk(0.950, [0.930, 0.975])]))      # overlaps but 0.027 below

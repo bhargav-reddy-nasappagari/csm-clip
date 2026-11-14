@@ -52,7 +52,8 @@ def run_fold(manifest, train_store, test_store, kind, n_boot=1000):
 
 
 def gate_report(results):
-    """Gate: our AUROC point estimate lies inside the reference CI. Also reports CI overlap (informational)."""
+    """Per-cell comparison with the reference. in_ref_ci (point estimate inside reference CI) is informational;
+    the gate itself is gate_passes() (revised criterion, decision D017)."""
     rows = []
     for r in results:
         ref, lo, hi = REFERENCE[(r["fold"], r["kind"])]
@@ -60,5 +61,15 @@ def gate_report(results):
         rows.append({"fold": r["fold"], "kind": r["kind"], "ours": round(r["auroc"], 3),
                      "ours_ci": [round(olo, 3), round(ohi, 3)], "ref": ref, "ref_ci": [lo, hi],
                      "in_ref_ci": bool(within_ci(r["auroc"], lo, hi)),
-                     "ci_overlap": bool(olo <= hi and lo <= ohi), "C": r["C"]})
+                     "ci_overlap": bool(olo <= hi and lo <= ohi), "delta": round(r["auroc"] - ref, 3),
+                     "C": r["C"]})
     return rows
+
+
+MAX_SHORTFALL = 0.02
+
+
+def gate_passes(rows, max_shortfall=MAX_SHORTFALL):
+    """Revised M2 gate (D017): every cell's CI overlaps the reference CI AND no cell is more than
+    max_shortfall below the reference AUROC."""
+    return all(r["ci_overlap"] and r["delta"] > -max_shortfall for r in rows)

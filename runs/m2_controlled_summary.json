@@ -1,0 +1,79 @@
+{
+ "protocol": "controlled",
+ "note": "Transcribed from the notebook 02 output table (Colab run, commit c6a2cc6); full per-run JSON stays on Drive.",
+ "gate": "revised D017: PASS",
+ "cells": [
+  {
+   "fold": "Midjourney",
+   "kind": "univfd",
+   "auroc": 0.829,
+   "auroc_ci95": [
+    0.802,
+    0.853
+   ],
+   "ref": 0.826,
+   "delta": 0.003,
+   "C": 0.01
+  },
+  {
+   "fold": "Midjourney",
+   "kind": "multilayer",
+   "auroc": 0.868,
+   "auroc_ci95": [
+    0.846,
+    0.891
+   ],
+   "ref": 0.875,
+   "delta": -0.007,
+   "C": 0.01
+  },
+  {
+   "fold": "BigGAN",
+   "kind": "univfd",
+   "auroc": 0.974,
+   "auroc_ci95": [
+    0.965,
+    0.981
+   ],
+   "ref": 0.96,
+   "delta": 0.014,
+   "C": 0.01
+  },
+  {
+   "fold": "BigGAN",
+   "kind": "multilayer",
+   "auroc": 0.979,
+   "auroc_ci95": [
+    0.971,
+    0.987
+   ],
+   "ref": 0.976,
+   "delta": 0.003,
+   "C": 0.1
+  },
+  {
+   "fold": "ADM",
+   "kind": "univfd",
+   "auroc": 0.899,
+   "auroc_ci95": [
+    0.88,
+    0.916
+   ],
+   "ref": 0.889,
+   "delta": 0.01,
+   "C": 0.01
+  },
+  {
+   "fold": "ADM",
+   "kind": "multilayer",
+   "auroc": 0.963,
+   "auroc_ci95": [
+    0.952,
+    0.972
+   ],
+   "ref": 0.977,
+   "delta": -0.014,
+   "C": 0.1
+  }
+ ]
+}
