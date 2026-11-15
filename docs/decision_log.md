@@ -5,8 +5,8 @@ Rows D001-D012 are pre-created from contract Section 5 so nothing is forgotten; 
 
 | ID | Date | Component | Decision | Alternatives considered | Reason | Expected effect |
 |---|---|---|---|---|---|---|
-| D001 | | CLIP checkpoint and preprocessing | TBD (M1/M3) | | | |
-| D002 | | LoRA placement, frozen weights | TBD (M3) | | | |
+| D001 | 2026-11-15 | CLIP checkpoint and preprocessing | HF openai/clip-vit-large-patch14-336 (CLIPVisionModel, fp32 weights, fp16 autocast). Preprocessing = the raw / controlled protocols in src/data.py. Taps = hidden_states[16] and [24] (outputs of encoder layers 16 and 24; index 0 is the embedding output), CLS dropped -> 2 x (B,576,1024). Block 24 tap is the raw layer output, before post_layernorm. | Tap pre-LN vs post-LN of layer 24; keep CLS | Matches contract Backbone row and M2 indexing; spec says the 576-token patch stream excluding CLS | Same tap definition as the frozen probes, so M2 numbers are the frozen-features reference for M3+ |
+| D002 | 2026-11-15 | LoRA placement, frozen weights | Hand-written LoRA (no peft) on q_proj and v_proj of all 24 vision encoder layers, r=8, alpha=16 (scale 2), no dropout, A kaiming-uniform, B zero. Everything else frozen: patch/position embeddings, pre/post layernorm, k_proj, out_proj, MLPs. 48 wrapped linears, 786,432 trainable params. | q,k,v,out; MLP too; last N layers only; peft library | q,v is the original LoRA recipe and the smallest set that still lets attention content and routing adapt; zero-init B means step 0 equals frozen CLIP exactly | Keeps CLIP prior intact; adaptation limited, so a tap-16 tweak is possible only via layers <=16 LoRA |
 | D003 | | Block-16/24 fusion equation | TBD (M4) | | | |
 | D004 | | Visual and text projection definitions | TBD (M4) | | | |
 | D005 | | Concept prompts and templates | TBD (M4) | | | |
