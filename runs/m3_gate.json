@@ -1,0 +1,30 @@
+{
+ "milestone": "M3",
+ "taps": [
+  16,
+  24
+ ],
+ "shape": [
+  8,
+  576,
+  1024
+ ],
+ "init_max_diff": [
+  0.0,
+  0.0
+ ],
+ "param_report": {
+  "trainable": 786432,
+  "total": 304293888,
+  "lora_modules": 48
+ },
+ "lora": {
+  "r": 8,
+  "alpha": 16.0,
+  "targets": [
+   "q_proj",
+   "v_proj"
+  ]
+ },
+ "gate": "PASS"
+}
