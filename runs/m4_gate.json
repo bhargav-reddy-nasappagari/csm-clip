@@ -1,0 +1,28 @@
+{
+ "milestone": "M4",
+ "shapes": {
+  "X": [
+   8,
+   576,
+   384
+  ],
+  "alpha": [
+   8,
+   576,
+   16
+  ]
+ },
+ "row_sum_max_err": 1.1920928955078125e-07,
+ "affinity_stats_init": {
+  "row_sum_min": 0.9999998807907104,
+  "row_sum_max": 1.0000001192092896,
+  "entropy_mean": 2.744473695755005,
+  "entropy_max_possible": 2.772588722239781,
+  "max_alpha_mean": 0.0958707332611084,
+  "argmax_concepts_used": 16,
+  "usage_min": 0.0457068607211113,
+  "usage_max": 0.08477708697319031
+ },
+ "checkpoint": "openai/clip-vit-large-patch14-336",
+ "gate": "PASS"
+}
