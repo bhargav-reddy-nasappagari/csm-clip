@@ -68,7 +68,7 @@ Each milestone ends with a gate. Do not start the next milestone until the gate 
 | M3 | Backbone + LoRA (r=8) | Taps are 2 x (B,576,1024) with CLS dropped; LoRA tensors get gradients, base CLIP gets none | Done (tag m3-done, 2026-11-15)|
 | M4 | Fusion + concept bank + affinity | X is (B,576,384); alpha is (B,576,16) and rows sum to 1; gradients reach both projections | Done (tag m4-done, 2026-11-17) |
 | M5 | Plain Mamba block | Scan causal (perturbing token t changes nothing before t); matches an independent reference scan on random input; memory OK (D008: B=8 full pipeline < 10 GiB) | Done (tag m5-done, 2026-11-19) |
-| M6 | Steering gates | With gates at init, steered output equals plain output exactly; gates receive gradient | Not started |
+| M6 | Steering gates | With gates at init, steered output equals plain output exactly; gates receive gradient | In progress |
 | M7 | Concept readout + 24x24 map | Map sum plus biases equals the logit (to fp16 tolerance) | Not started |
 | M8 | Training loop | Overfits 4 images; resumes from checkpoint; fp16 stable | Not started |
 | M9 | Main experiment: steered vs plain, same fold, matched settings | Both arms complete, results JSON written | Not started |
