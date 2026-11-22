@@ -69,7 +69,7 @@ Each milestone ends with a gate. Do not start the next milestone until the gate 
 | M4 | Fusion + concept bank + affinity | X is (B,576,384); alpha is (B,576,16) and rows sum to 1; gradients reach both projections | Done (tag m4-done, 2026-11-17) |
 | M5 | Plain Mamba block | Scan causal (perturbing token t changes nothing before t); matches an independent reference scan on random input; memory OK (D008: B=8 full pipeline < 10 GiB) | Done (tag m5-done, 2026-11-19) |
 | M6 | Steering gates | With gates at init, steered output equals plain output exactly; gates receive gradient | Done (tag m6-done, 2026-11-19) |
-| M7 | Concept readout + 24x24 map | Map sum plus biases equals the logit (to fp16 tolerance) | In progress (code + CPU tests done 2026-11-23; Colab gate pending: notebooks/07_m7_readout.ipynb) |
+| M7 | Concept readout + 24x24 map | Map sum plus biases equals the logit (to fp16 tolerance) | Done (tag m7-done, 2026-11-23) |
 | M8 | Training loop | Overfits 4 images; resumes from checkpoint; fp16 stable | Not started |
 | M9 | Main experiment: steered vs plain, same fold, matched settings | Both arms complete, results JSON written | Not started |
 | M10 | Replicate (other folds, 3 seeds) + ablations (random concepts, no concepts, no LoRA, single block) | Results table complete | Not started |
