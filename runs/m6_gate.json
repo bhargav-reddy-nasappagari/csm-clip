@@ -1,0 +1,82 @@
+{
+ "milestone": "M6",
+ "gate1_init_equals_plain": {
+  "fp32": {
+   "plain_vs_plain": 0.0,
+   "steered_vs_plain": 0.0,
+   "exact": true
+  },
+  "fp16": {
+   "plain_vs_plain": 0.0,
+   "steered_vs_plain": 0.0,
+   "exact": true
+  }
+ },
+ "gate_input_stats_init": {
+  "mean_abs_16a_minus_1": 0.21281452476978302,
+  "max_abs_16a_minus_1": 2.1733639240264893
+ },
+ "gate2_gradients": {
+  "init_all_params_have_grad": true,
+  "gate_grad_abs_sums_init": {
+   "layers.0.mixer.gates.W": 0.09160736948251724,
+   "layers.0.mixer.gates.b": 0.040046561509370804,
+   "layers.1.mixer.gates.W": 0.09993091970682144,
+   "layers.1.mixer.gates.b": 0.044687915593385696
+  },
+  "steering_path_reaches_frontend_and_lora": true
+ },
+ "gate3_live_and_causal": {
+  "live": {
+   "vs_plain": 0.005859375,
+   "vs_other_alpha": 0.005859375
+  },
+  "causality_before_after": {
+   "0": [
+    0.0,
+    4.4677734375
+   ],
+   "1": [
+    0.0,
+    3.9814453125
+   ],
+   "15": [
+    0.0,
+    3.97216796875
+   ],
+   "16": [
+    0.0,
+    4.330078125
+   ],
+   "287": [
+    0.0,
+    4.3173828125
+   ],
+   "575": [
+    0.0,
+    4.0244140625
+   ]
+  }
+ },
+ "pipeline_b8": {
+  "plain_chunk8": {
+   "peak_gib": 8.564680576324463,
+   "sec_per_step_b8": 1.1276249885559082,
+   "img_per_s": 7.094557216442314,
+   "est_min_per_epoch_3240_imgs": 7.61146867275238
+  },
+  "steered_chunk8": {
+   "peak_gib": 8.650163173675537,
+   "sec_per_step_b8": 0.8804924488067627,
+   "img_per_s": 9.085824655102432,
+   "est_min_per_epoch_3240_imgs": 5.943324029445648
+  },
+  "steered_chunk16": {
+   "peak_gib": 8.64737844467163,
+   "sec_per_step_b8": 0.8258488178253174,
+   "img_per_s": 9.6870030292786,
+   "est_min_per_epoch_3240_imgs": 5.574479520320892
+  }
+ },
+ "gate": "PASS"
+}
