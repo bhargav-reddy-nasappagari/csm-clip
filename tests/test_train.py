@@ -160,6 +160,20 @@ def test_resume_is_bit_exact(tmp_path):
     assert [h["train_loss"] for h in full.state["history"]] == [h["train_loss"] for h in again.state["history"]]
 
 
+def test_resume_mid_epoch_with_lost_steps_is_bit_exact(tmp_path):
+    c = cfg(epochs=3, ckpt_every=3)          # 4 batches/epoch: checkpoints at steps 3, 4, 6, 8, 9, 12
+    full = trainer(c, tmp_path / "full"); full.fit()
+    part = trainer(c, tmp_path / "part")
+    part.fit(stop_after_steps=7)             # last checkpoint = step 6 (mid-epoch 2, after batch 2); step 7 is lost
+    ck = torch.load(part.last_path, weights_only=True)
+    assert (ck["state"]["step"], ck["state"]["epoch"], ck["state"]["batch"]) == (6, 1, 2)
+    again = trainer(c, tmp_path / "part"); again.fit()
+    assert again.state["step"] == 12 and len(again.step_losses) == 6
+    assert again.step_losses == full.step_losses[6:]
+    a, b = full.model.trainable_state_dict(), again.model.trainable_state_dict()
+    assert all(torch.equal(a[k], b[k]) for k in a)
+
+
 def test_resume_refuses_changed_config(tmp_path):
     c = cfg()
     t = trainer(c, tmp_path / "r")
