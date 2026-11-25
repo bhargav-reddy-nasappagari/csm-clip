@@ -1,0 +1,39 @@
+{
+ "milestone": "M8",
+ "gate_overfit4": {
+  "loss_first5": 0.39728981512598693,
+  "loss_last5": 4.97101336804917e-07,
+  "logits": [
+   -13.196940422058105,
+   -16.031896591186523,
+   24.613862991333008,
+   16.339691162109375
+  ],
+  "labels": [
+   0.0,
+   0.0,
+   1.0,
+   1.0
+  ],
+  "peak_gib": 5.244415760040283
+ },
+ "gate_resume": {
+  "restored_state_bitwise_exact": true,
+  "noise_floor_loss_diff": 0.01999640464782715,
+  "resumed_loss_diff": 0.013613402843475342,
+  "max_param_diff": 0.0016422737389802933,
+  "resumed_steps": 7
+ },
+ "gate_fp16": {
+  "steps": 40,
+  "loss_first10": 1.1477634221315385,
+  "loss_last10": 0.5248775869607926,
+  "skipped_steps": 1,
+  "nonfinite_steps": 0,
+  "peak_gib": 8.741698741912842,
+  "img_per_s": 6.3977107495672305,
+  "final_scale": 32768.0,
+  "all_params_finite": true
+ },
+ "gate": "PASS"
+}
