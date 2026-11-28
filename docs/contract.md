@@ -71,7 +71,7 @@ Each milestone ends with a gate. Do not start the next milestone until the gate 
 | M6 | Steering gates | With gates at init, steered output equals plain output exactly; gates receive gradient | Done (tag m6-done, 2026-11-19) |
 | M7 | Concept readout + 24x24 map | Map sum plus biases equals the logit (to fp16 tolerance) | Done (tag m7-done, 2026-11-23) |
 | M8 | Training loop | Overfits 4 images; resumes from checkpoint; fp16 stable | Done (tag m8-done, 2026-11-25) |
-| M9 | Main experiment: steered vs plain, same fold, matched settings | Both arms complete, results JSON written | Not started |
+| M9 | Main experiment: steered vs plain, same fold, matched settings | Both arms complete, results JSON written | In Progress |
 | M10 | Replicate (other folds, 3 seeds) + ablations (random concepts, no concepts, no LoRA, single block) | Results table complete | Not started |
 | M11 | Compare with the other build; write-up | Comparison table filled; report drafted | Not started |
 

@@ -368,7 +368,8 @@ class Trainer:
 
 def final_test(trainer, test_ds, n_boot=1000):
     """The held-out generator, touched ONCE per run (contract rule 5). Requires finished training. Primary result =
-    final-epoch model; secondary = best-validation-epoch model. Writes run_dir/results.json."""
+    final-epoch model; secondary = best-validation-epoch model. Writes run_dir/predictions.npz (per-image test logits,
+    needed for the paired steered-vs-plain comparison of M9) and then run_dir/results.json."""
     path = os.path.join(trainer.run_dir, "results.json")
     if os.path.exists(path):
         raise RuntimeError(f"{path} exists: the held-out test was already evaluated for this run (contract rule 5)")
@@ -380,12 +381,18 @@ def final_test(trainer, test_ds, n_boot=1000):
            "config": asdict(cfg), "epochs_done": st["epoch"], "skipped_steps": st["skipped"],
            "nonfinite_steps": st["nonfinite"], "history": st["history"],
            "final_epoch": {"epoch": st["epoch"], **evaluate(y, logits, n_boot=n_boot)}}
+    preds = {"labels": y, "final_logits": logits}
+    if hasattr(test_ds, "indices"):
+        preds["indices"] = np.asarray(test_ds.indices)
     if os.path.exists(trainer.best_path):
         ck = torch.load(trainer.best_path, map_location="cpu", weights_only=True)
         trainer.model.load_trainable_state_dict(ck["model"])
         logits, y, _ = pred()
         res["best_val_epoch"] = {"epoch": ck["epoch"], "val_auroc": ck["val_auroc"],
                                  **evaluate(y, logits, n_boot=n_boot)}
+        preds["best_val_logits"] = logits
+    # predictions first: results.json is the "this run is finished" marker, so it must be written last
+    np.savez(os.path.join(trainer.run_dir, "predictions.npz"), **preds)
     with open(path, "w") as f:
         json.dump(res, f, indent=1)
     return res
